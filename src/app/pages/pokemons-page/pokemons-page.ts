@@ -35,15 +35,13 @@ export class PokemonsPage implements OnInit {
 
   ngOnInit():void {
 
-
-
     this.loadPokemons();
 
   }
 
   public loadPokemons(nextPage = 0):void {
     const pageToLoad = this.currentPage()! + nextPage;
-    this.pokemonsService.loadPage(nextPage).pipe(
+    this.pokemonsService.loadPage(pageToLoad).pipe(
       tap(()=>
 
       this.router.navigate([],{queryParams: {page: pageToLoad}})

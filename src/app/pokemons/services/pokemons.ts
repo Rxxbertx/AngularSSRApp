@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map, Observable} from 'rxjs';
+import {map, Observable, of} from 'rxjs';
 import {SimplePokemon} from '../interfaces/simple-pokemon.interface';
 import {PokemonAPIResponse} from '../interfaces/PokemonApiResponse';
 import {PokemonInterface} from '../interfaces/PokemonInterface';
@@ -15,10 +15,10 @@ export class Pokemons {
 
   public loadPage(page: number, pageSize: number = 20): Observable<SimplePokemon[]> {
     let offset = (page - 1) * pageSize;
-
     if (offset < 0) {
-      offset = 0
+      offset = 0; // Ensure offset is not negative
     }
+
     return this.httpClient.get<PokemonAPIResponse>(`${this.apiUrl}?offset=${offset}&limit=${pageSize}`).pipe(map((resp) => {
       const simplePokemons: SimplePokemon[] = resp.results.map(pokemon => ({
         name: pokemon.name,
@@ -31,7 +31,7 @@ export class Pokemons {
 
   public loadPokemon(id: string): Observable<PokemonInterface> {
 
-    return this.httpClient.get<PokemonInterface>(`${this.apiUrl}${id}`).pipe()
+    return this.httpClient.get<PokemonInterface>(`${this.apiUrl}/${id}`).pipe()
 
   }
 
