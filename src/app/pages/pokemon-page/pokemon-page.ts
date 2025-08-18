@@ -11,7 +11,7 @@ import {Meta, Title} from '@angular/platform-browser';
   templateUrl: './pokemon-page.html',
   styleUrl: './pokemon-page.css'
 })
-export class PokemonPage implements OnInit {
+export default class PokemonPage implements OnInit {
 
   public pokemon = signal<PokemonInterface | null>(null)
   private route = inject(ActivatedRoute)
