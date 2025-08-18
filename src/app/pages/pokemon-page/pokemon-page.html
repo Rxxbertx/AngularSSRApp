@@ -1,1 +1,40 @@
-<p>pokemon-page works!</p>
+@if (pokemon() === null) {
+  <div class="flex flex-col justify-center items-center h-screen">
+    <div class="loader"></div>
+    <p class="text-lg mt-4">Loading...</p>
+  </div>
+} @else {
+
+  @let pokemonTemp = pokemon()!;
+
+  <div class="flex flex-col justify-center">
+    <div class="flex justify-center">
+      <h1 class="text-4xl font-bold capitalize my-5">{{ pokemonTemp.name }}</h1>
+    </div>
+  </div>
+  <div class="flex flex-col justify-center items-center w-full">
+    <img class="w-64 h-64" width="256px" height="256px"
+         [src]="pokemonTemp.sprites.other?.['official-artwork'].front_default" alt="pokemon info">
+
+    @if (pokemonTemp.cries.latest !== null) {
+      <audio controls class="my-10">
+        <source [src]="pokemonTemp.cries.latest" type="audio/wav">
+      </audio>
+    }
+
+  </div>
+
+  <div class="flex flex-col justify-center">
+    <h2 class="text-2xl font-bold mt-2">
+      Abilities
+    </h2>
+    <div class="flex flex-wrap items-center">
+
+      @for (ability of pokemonTemp.abilities; track ability.ability.name) {
+        <span class="mx-2">{{ ability.ability.name }}</span>
+      }
+
+    </div>
+  </div>
+
+}
