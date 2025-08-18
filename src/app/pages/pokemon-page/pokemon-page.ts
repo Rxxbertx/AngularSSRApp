@@ -4,10 +4,11 @@ import {Pokemons} from '../../pokemons/services/pokemons';
 import {ActivatedRoute} from '@angular/router';
 import {tap} from 'rxjs';
 import {Meta, Title} from '@angular/platform-browser';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-pokemon-page',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './pokemon-page.html',
   styleUrl: './pokemon-page.css'
 })
