@@ -15,6 +15,7 @@ export class Pokemons {
 
   public loadPage(page: number, pageSize: number = 20): Observable<SimplePokemon[]> {
     let offset = (page - 1) * pageSize;
+    console.log(page)
     if (offset < 0) {
       offset = 0; // Ensure offset is not negative
     }

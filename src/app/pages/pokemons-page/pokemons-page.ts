@@ -1,8 +1,8 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, effect, inject, signal} from '@angular/core';
 import {PokemonList} from '../../pokemons/components/pokemon-list/pokemon-list';
 import {Pokemons} from '../../pokemons/services/pokemons';
 import {SimplePokemon} from '../../pokemons/interfaces/simple-pokemon.interface';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {map, tap} from 'rxjs';
 import {Title} from '@angular/platform-browser';
@@ -12,42 +12,37 @@ import {PokemonsListSkeleton} from './ui/pokemons-list-skeleton/pokemons-list-sk
   selector: 'app-pokemons-page',
   imports: [
     PokemonList,
-    PokemonsListSkeleton
+    PokemonsListSkeleton,
+    RouterLink
   ],
   templateUrl: './pokemons-page.html',
   styleUrl: './pokemons-page.css'
 })
-export class PokemonsPage implements OnInit {
+export class PokemonsPage {
 
   private pokemonsService = inject(Pokemons)
   public pokemons = signal<SimplePokemon[]>([]);
-  private params = inject(ActivatedRoute)
-  private router = inject(Router)
+  private route = inject(ActivatedRoute)
   private title = inject(Title)
 
-  public currentPage = toSignal<number>(this.params.queryParamMap.pipe(map(params => {
-    const page = params.get('page') ?? '1';
+  public currentPage = toSignal<number>(this.route.params.pipe(map(params => {
+    const page = params['page'] ?? '1';
     if (isNaN(+page)) {
       return 1;
     }
-    return  Math.max(1,+page);
+    return Math.max(1, +page);
   })));
 
-  ngOnInit():void {
+  public loadNewPageOnChangePage = effect(() => {
+    this.loadPokemons(this.currentPage());
+  })
 
-    this.loadPokemons();
 
-  }
+  public loadPokemons(nextPage = 0): void {
 
-  public loadPokemons(nextPage = 0):void {
-    const pageToLoad = this.currentPage()! + nextPage;
+    const pageToLoad = this.currentPage()!;
     this.pokemonsService.loadPage(pageToLoad).pipe(
-      tap(()=>
-
-      this.router.navigate([],{queryParams: {page: pageToLoad}})
-
-      ),
-      tap(()=>
+      tap(() =>
         this.title.setTitle(`PokemonsSSR - Page ${pageToLoad}`)
       )
     ).subscribe(pokemons => {
