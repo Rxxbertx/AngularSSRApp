@@ -1,5 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import { App } from './app';
+import {Component} from '@angular/core';
+import {Navbar} from './shared/navbar/navbar';
 
 describe('App', () => {
 
@@ -7,11 +9,29 @@ describe('App', () => {
   let app: App;
   let compiled: HTMLDivElement
 
+@Component({
+  standalone: true,
+  template: `
+
+  `,
+  selector: "app-navbar"
+})
+  class NavbarMock{
+
+  }
+
 
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
+    }).overrideComponent(App,{
+      add:{
+        imports:[NavbarMock]
+      },
+      remove:{
+        imports:[Navbar]
+      }
     }).compileComponents();
 
     fixture = TestBed.createComponent(App)
