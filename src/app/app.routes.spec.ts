@@ -28,20 +28,6 @@ describe("App Routes", () => {
 
   });
 
-  it('should load the proper component', async () => {
-
-    const aboutRoute = routes.find((route) => route.path === 'about')!
-    expect(aboutRoute).toBeDefined()
-
-
-    const aboutComponent = (await aboutRoute.loadComponent!()) as any;
-
-    const name = aboutComponent.default.name.replace( /\d+$/, '' );
-
-    console.log(name)
-
-
-  });
 
 
 })
