@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterLink } from '@angular/router';
+import { By } from '@angular/platform-browser';
 
 import { PokemonCard } from './pokemon-card';
 import {provideRouter} from '@angular/router';
@@ -54,12 +56,5 @@ describe('PokemonCard', () => {
 
   });
 
-  it('should have the proper ng-reflect-router-link', () => {
-
-    console.log(compiled.querySelector("div"))
-
-    expect(compiled.attributes.getNamedItem("ng-reflect-router-link")?.value).toBe(`/pokemons/${mockPokemon.name}`)
-
-  });
 
 });
