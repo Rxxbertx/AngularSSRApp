@@ -1,9 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contact-page',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './contact-page.html',
   styleUrl: './contact-page.css'
 })

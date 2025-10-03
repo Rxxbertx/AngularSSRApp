@@ -1,9 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pricing-page',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './pricing-page.html',
   styleUrl: './pricing-page.css'
 })

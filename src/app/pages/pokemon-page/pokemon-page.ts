@@ -8,11 +8,12 @@ import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-pokemon-page',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './pokemon-page.html',
   styleUrl: './pokemon-page.css'
 })
-export default class PokemonPage implements OnInit {
+export class PokemonPage implements OnInit {
 
   public pokemon = signal<PokemonInterface | null>(null)
   private route = inject(ActivatedRoute)

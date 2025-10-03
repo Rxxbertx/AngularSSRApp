@@ -10,6 +10,7 @@ import {PokemonsListSkeleton} from './ui/pokemons-list-skeleton/pokemons-list-sk
 
 @Component({
   selector: 'app-pokemons-page',
+  standalone: true,
   imports: [
     PokemonList,
     PokemonsListSkeleton,
@@ -52,4 +53,3 @@ export class PokemonsPage {
 
 
 }
-
