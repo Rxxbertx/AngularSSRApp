@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "AngularSSRApp": {
+    "pokemon-ssr": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -11,8 +11,10 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "outputPath": "dist/pokemon-ssr",
+            "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
@@ -27,12 +29,13 @@
             "styles": [
               "src/styles.css"
             ],
+            "scripts": [],
             "server": "src/main.server.ts",
             "prerender": {
               "routesFile": "routes.txt"
             },
             "ssr": {
-              "entry": "src/server.ts"
+              "entry": "server.ts"
             }
           },
           "configurations": {
@@ -45,8 +48,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
                 }
               ],
               "outputHashing": "all"
@@ -60,22 +63,22 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "AngularSSRApp:build:production"
+              "buildTarget": "pokemon-ssr:build:production"
             },
             "development": {
-              "buildTarget": "AngularSSRApp:build:development"
+              "buildTarget": "pokemon-ssr:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
+          "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "polyfills": [
               "zone.js",
@@ -90,13 +93,14 @@
             ],
             "styles": [
               "src/styles.css"
-            ]
+            ],
+            "scripts": []
           }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": "10934ae4-fbd9-450d-a46f-9c6bf31ee2a6"
   }
 }
